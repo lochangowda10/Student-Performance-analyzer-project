@@ -51,7 +51,15 @@ else:
 if st.sidebar.button("Generate Report"):
     st.divider()
     
-    # 1. Summary Section
+    # 1. Student Details Section
+    st.subheader("📋 Student Information")
+    col_name, col_roll = st.columns(2)
+    col_name.write(f"**Name:** {name}")
+    col_roll.write(f"**Roll Number:** {roll_no}")
+    
+    st.divider()
+    
+    # 2. Summary Section
     col1, col2, col3 = st.columns(3)
     col1.metric("Total Marks", f"{total_marks}/500")
     col2.metric("Percentage", f"{percentage:.2f}%")
@@ -59,12 +67,12 @@ if st.sidebar.button("Generate Report"):
     
     st.divider()
 
-    # 2. Detailed Data Table
+    # 3. Detailed Data Table
     df = pd.DataFrame(list(marks_dict.items()), columns=["Subject", "Marks Obtained"])
-    st.subheader(f"📄 Report Card for {name} ({roll_no})")
+    st.subheader(f"📄 Report Card")
     st.dataframe(df, use_container_width=True)
 
-    # 3. Visualization (Bar Chart)
+    # 4. Visualization (Bar Chart)
     st.subheader("📊 Performance Visualization")
     
     fig, ax = plt.subplots()
@@ -80,7 +88,7 @@ if st.sidebar.button("Generate Report"):
         
     st.pyplot(fig)
 
-    # 4. Success Message
+    # 5. Success Message
     if percentage >= 50:
         st.success("Result: PASSED 🎉")
     else:
